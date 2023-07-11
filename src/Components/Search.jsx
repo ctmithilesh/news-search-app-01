@@ -1,6 +1,6 @@
 import { Alert, Box, Button, Container, FormControl, Grid, Snackbar, TextField } from '@mui/material'
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import News from './News'
 
@@ -75,6 +75,7 @@ const Search = () => {
       };
     
 
+    
 
   return (
     <Container sx={{m:2, p:2 }}>

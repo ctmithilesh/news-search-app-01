@@ -9,7 +9,12 @@ const News = (props) => {
 
     console.log('props',props)
     const data = props.data
+    const cachedData = React.useMemo(() => data, [data]);
+
+    console.log('cache',cachedData)
+
   return (
+
     <>
      <Box 
         display="flex"
@@ -17,7 +22,7 @@ const News = (props) => {
         flexWrap="wrap"
         sx={{m:2, p:2 }}  
     >
-    {data != null && data.length ? data.map((item)=>(
+    {cachedData != null && cachedData.length ? data.map((item)=>(
                  <Card sx={{ maxWidth: 345 }} key={item}>
                  <CardActionArea>
                    <CardMedia
