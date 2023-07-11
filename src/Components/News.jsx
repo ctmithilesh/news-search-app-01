@@ -36,9 +36,9 @@ const News = (props) => {
                    </CardContent>
                  </CardActionArea>
                  <CardActions>
-                   <Button size="small" color="primary">
-                     Share
-                   </Button>
+                   <a target="_blank" href={item.url} rel="noreferrer">
+                        Read More
+                   </a>
                  </CardActions>
                </Card>
 

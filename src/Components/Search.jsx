@@ -1,13 +1,15 @@
-import { Box, Button, Container, FormControl, Grid, TextField } from '@mui/material'
+import { Alert, Box, Button, Container, FormControl, Grid, Snackbar, TextField } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import News from './News'
 
+
 const Search = () => {
 
     const [query, setQuery] = useState()
     const [news, setNews] = useState()
+    const [open, setOpen] = useState(false)
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
     const handleInputChange = (e) => {
@@ -44,6 +46,8 @@ const Search = () => {
 
     const onSubmit = ()=>{
             console.log(query)
+            setOpen(true)
+            console.log(open)
             const fetchNews = async()=>{
 
                 await axios.get(`
@@ -62,6 +66,15 @@ const Search = () => {
 
     }
 
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false);
+      };
+    
+
 
   return (
     <Container sx={{m:2, p:2 }}>
@@ -74,12 +87,29 @@ const Search = () => {
                         {...register("search", { required: true })}
                         onChangeCapture={handleInputChange}
                     />
+                    {errors.search &&
+                        <>
+                        <span style={{color:`red`}}>Search field is required!!!</span>
+                        </>
+                    }
+                     
             </FormControl>
             <FormControl sx={{m:2, p:1}}>
                 <Button variant="contained" color="success"  type="submit">
                     Search
                 </Button>
             </FormControl>
+            <Snackbar 
+                open={open} 
+                autoHideDuration={6000} 
+                onClose={handleClose}
+                anchorOrigin={{vertical:'top',horizontal:'right'}}
+            
+            >
+                            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                            This is a success message!
+                            </Alert>
+            </Snackbar>
         </form>
     
                 <News data={news} />
